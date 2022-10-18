@@ -1,0 +1,62 @@
+-- > CREATING COLLECTION
+db.createCollection("student")
+
+-- > INSERTING DATA
+ db.student.insertOne( 
+		 { name : "Sanket" , roll : 44 ,subject : "Math" }
+) 
+
+
+-- > INSERTING MULTIPLE DATA 
+	db.student.insertMany( 
+	 [
+		 { "name" : "Vinayak" , "roll" : 37 , "class" : "TE1" , "sub" : "Chemistry"}  , 
+		 { "name" : "Harsh"   , "roll" : 38 , "class" : "TE2" , "sub" : "Physics" } 
+	 ] 
+  )
+
+
+-- > UPDATE ONE 
+> db.student.updateOne(
+		{"name" : "Sanket"},  
+		{
+			$set : {"roll":38 }
+		}
+	)
+	
+	
+	
+-- > UPDATE MANY 
+> db.student.updateMany(  
+			{} , 
+			{
+				$set : 
+					{ class : "TE1" }
+			}
+	)
+{ "acknowledged" : true, "matchedCount" : 3, "modifiedCount" : 1 }
+
+
+-- > FIND ALL 
+> db.student.find().pretty()
+	{
+		"_id" : ObjectId("634e247363fbfaea359b4987"),
+		"name" : "Sanket",
+		"roll" : 38,
+		"subject" : "Math",
+		"class" : "TE1"
+	}
+	{
+		"_id" : ObjectId("634e27e963fbfaea359b4988"),
+		"name" : "Vinayak",
+		"roll" : 37,
+		"class" : "TE1",
+		"sub" : "Chemistry"
+	}
+	{
+		"_id" : ObjectId("634e27e963fbfaea359b4989"),
+		"name" : "Harsh",
+		"roll" : 38,
+		"class" : "TE2",
+		"sub" : "Physics"
+	}
