@@ -43,6 +43,7 @@ int main()
     {
         string ins = "";
         getline(inp, ins);
+        // cout << ins << "\n" ;
         vector<string> tokens = tokenize(ins, ' ');
 
         // When we encounter MEND
@@ -59,14 +60,16 @@ int main()
 
         // When we encounter first line after MACRO containing macro name
 
-        else if(begin  && tokens[0] != "MACRO"){
+         else if(begin  && tokens[0] != "MACRO"){
+            output = "" ;
             kpdtp += kp ;
             string macro_name = tokens[0] ;
-            // cout << macro_name << "\n" ;
+            cout << macro_name << "\n" ;
+            output += macro_name + ' ' ;
              kp = 0 , pp = 0 ;
             for(int i = 1 ; i < tokens.size() ; ++ i){
                 string var = tokens[i].replace(0,1,"") ;
-
+                // cout << var << "\n" ;
                 // If it is a keyword parameter
 
                 if(var.find('=') != string::npos){
@@ -85,12 +88,13 @@ int main()
                 // If a positional parameter
 
                 else{
+                    cout << var << ' ' ;
                     pp++;
                     PNT.push_back(var) ;
                 }   
             }
-
-            mnt << macro_name << ' ' << pp << ' ' << kp << ' ' << mdtp << ' ' << (kp == 0 ? '-' : kpdtp + 1) << "\n" ;
+            output += (to_string(pp) + ' ' + to_string(kp) + ' '+ to_string(mdtp) + ' '  + (kp == 0 ? "-" : to_string(kpdtp + 1))) ; 
+            mnt <<output<< "\n" ;
             begin = 0 ;
         }
 
@@ -103,7 +107,7 @@ int main()
             for(int i = 1; i < tokens.size() ; ++ i){
                 if(tokens[i].find('&') != string :: npos ){
                      var = tokens[i].replace(0,1,"") ;
-                     cout << var << "\n" ;
+                    //  cout << var << "\n" ;
                     int ind = getindex(PNT , var) ; 
                     ind ++ ;
                     output += ("(P," +to_string(ind)+ ") ") ;
@@ -117,4 +121,8 @@ int main()
         }
 
     }
+    inp.close() ;
+    mdt.close() ;
+    mnt.close() ;
+    kpd.close() ;
 }
